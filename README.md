@@ -2,7 +2,7 @@
 
 **Android video downloader with embedded FFmpeg, CPython, and yt-dlp runtime.**
 
-![ElePlay Icon](doc/screenshots/1774183707799-019d1596-c748-7b0a-8a42-7673157fb46b.png)
+![ElePlay Icon](docs/screenshots/1774183707799-019d1596-c748-7b0a-8a42-7673157fb46b.png)
 
 ---
 
@@ -17,13 +17,21 @@
 
 ---
 
+## 📱 Requirements
+
+- **Android 7.0 (API 24) or higher**
+- **ARM64 (arm64-v8a)** devices only (most modern Android phones)
+
+---
+
 ## 🚀 Quick start
 
-1. Install the APK from [Releases](https://github.com/ren10-14/ElePlay/releases)
-2. Open the app
-3. Paste a YouTube link
-4. Choose quality
-5. Download
+1. Download the APK from [Releases](https://github.com/ren10-14/ElePlay/releases)
+2. Install on your device (allow installation from unknown sources)
+3. Open the app
+4. Paste a YouTube link
+5. Choose quality
+6. Download
 
 ---
 
@@ -33,7 +41,7 @@ This repository contains **only the source code**.
 To build ElePlay, you need to download the runtime package from [Releases](https://github.com/ren10-14/ElePlay/releases) and extract it to `app/src/main/assets/`.
 git clone https://github.com/ren10-14/ElePlay.git
 
-Download eleplay-runtime-v1.0.zip from Releases
+Download eleplay-runtime-v1.0.0.zip from Releases
 Extract to app/src/main/assets/
 Open in Android Studio → Build → Run
 text
