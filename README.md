@@ -2,7 +2,7 @@
 
 **Android video downloader with embedded FFmpeg, CPython, and yt-dlp runtime.**
 
-![ElePlay Icon](docs/screenshots/1774183707799-019d1596-c748-7b0a-8a42-7673157fb46b.png)
+![ElePlay Icon](doc/screenshots/1774183707799-019d1596-c748-7b0a-8a42-7673157fb46b.png)
 
 ---
 
