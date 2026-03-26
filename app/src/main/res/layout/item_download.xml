@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="6dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvDownloadTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:text="Downloaded title" />
+
+            <TextView
+                android:id="@+id/tvDownloadFileName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="?android:textColorSecondary"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="file.mp4" />
+
+            <TextView
+                android:id="@+id/tvDownloadMime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:textColor="?android:textColorSecondary"
+                android:text="video/mp4" />
+
+            <TextView
+                android:id="@+id/tvDownloadDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:textColor="?android:textColorSecondary"
+                android:text="22.03.2026 21:00" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnOpen"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Open"
+            android:src="@android:drawable/ic_menu_view" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
