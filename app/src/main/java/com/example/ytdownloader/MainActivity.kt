@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     )
 
     private val downloadingMessages = listOf(
-        "Negotiating with YouTube...",
+        "Negotiating with the video platform...",
         "Preparing Python runtime...",
         "Collecting video fragments...",
         "Teaching packets to behave...",

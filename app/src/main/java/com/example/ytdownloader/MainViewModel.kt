@@ -186,16 +186,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun fetchVideoInfo(url: String) {
-        if (url.isBlank()) {
+        val normalizedUrl = url.trim()
+
+        if (normalizedUrl.isBlank()) {
             _errorMessage.value = "Please enter a URL"
             return
         }
-        if (!isValidYoutubeUrl(url)) {
-            _errorMessage.value = "Invalid YouTube URL"
+
+        if (!isValidWebUrl(normalizedUrl)) {
+            _errorMessage.value = "Invalid URL"
             return
         }
 
-        saveLastUrl(url)
+        saveLastUrl(normalizedUrl)
 
         viewModelScope.launch {
             _isLoading.value = true
@@ -210,7 +213,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _is2160Available.value = false
             uiStateStorage.clearVideoState()
 
-            val result = engine.fetchVideoInfo(url)
+            val result = engine.fetchVideoInfo(normalizedUrl)
 
             result.fold(
                 onSuccess = { info ->
@@ -226,16 +229,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                             }
                         }
                         .sortedWith(
-                            compareBy<FormatItem>(
-                                { when {
-                                    it.isVideoOnly -> 0
-                                    it.isMuxed -> 1
-                                    else -> 2
-                                }},
-                                { it.height ?: 0 },
-                                { it.fps ?: 0 },
-                                { it.tbr ?: 0f }
-                            )
+                            compareByDescending<FormatItem> { it.height ?: 0 }
+                                .thenByDescending { it.fps ?: 0 }
+                                .thenByDescending { it.tbr ?: 0f }
+                                .thenBy {
+                                    when {
+                                        it.isMuxed -> 0
+                                        it.isVideoOnly -> 1
+                                        it.isAudioOnly -> 2
+                                        else -> 3
+                                    }
+                                }
                         )
 
                     _formats.value = filteredFormats
@@ -272,7 +276,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun downloadSelected(url: String) {
+        val normalizedUrl = url.trim()
         val format = _selectedFormat.value
+
+        if (normalizedUrl.isBlank()) {
+            _errorMessage.value = "Please enter a URL"
+            return
+        }
+
+        if (!isValidWebUrl(normalizedUrl)) {
+            _errorMessage.value = "Invalid URL"
+            return
+        }
+
         if (format == null) {
             _errorMessage.value = "Please select a format"
             return
@@ -283,10 +299,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             return
         }
 
-        saveLastUrl(url)
+        saveLastUrl(normalizedUrl)
 
         startForegroundDownload(
-            url = url,
+            url = normalizedUrl,
             title = info.title,
             fileName = sanitizeFileName(info.title),
             mode = DownloadForegroundService.MODE_SELECTED,
@@ -295,15 +311,27 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun downloadBest(url: String) {
+        val normalizedUrl = url.trim()
+
+        if (normalizedUrl.isBlank()) {
+            _errorMessage.value = "Please enter a URL"
+            return
+        }
+
+        if (!isValidWebUrl(normalizedUrl)) {
+            _errorMessage.value = "Invalid URL"
+            return
+        }
+
         val info = _videoInfo.value ?: run {
             _errorMessage.value = "Load video info first"
             return
         }
 
-        saveLastUrl(url)
+        saveLastUrl(normalizedUrl)
 
         startForegroundDownload(
-            url = url,
+            url = normalizedUrl,
             title = info.title,
             fileName = sanitizeFileName(info.title),
             mode = DownloadForegroundService.MODE_BEST
@@ -311,15 +339,27 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun download1080p(url: String) {
+        val normalizedUrl = url.trim()
+
+        if (normalizedUrl.isBlank()) {
+            _errorMessage.value = "Please enter a URL"
+            return
+        }
+
+        if (!isValidWebUrl(normalizedUrl)) {
+            _errorMessage.value = "Invalid URL"
+            return
+        }
+
         val info = _videoInfo.value ?: run {
             _errorMessage.value = "Load video info first"
             return
         }
 
-        saveLastUrl(url)
+        saveLastUrl(normalizedUrl)
 
         startForegroundDownload(
-            url = url,
+            url = normalizedUrl,
             title = info.title,
             fileName = sanitizeFileName(info.title),
             mode = DownloadForegroundService.MODE_1080
@@ -327,15 +367,27 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun download1440p(url: String) {
+        val normalizedUrl = url.trim()
+
+        if (normalizedUrl.isBlank()) {
+            _errorMessage.value = "Please enter a URL"
+            return
+        }
+
+        if (!isValidWebUrl(normalizedUrl)) {
+            _errorMessage.value = "Invalid URL"
+            return
+        }
+
         val info = _videoInfo.value ?: run {
             _errorMessage.value = "Load video info first"
             return
         }
 
-        saveLastUrl(url)
+        saveLastUrl(normalizedUrl)
 
         startForegroundDownload(
-            url = url,
+            url = normalizedUrl,
             title = info.title,
             fileName = sanitizeFileName(info.title),
             mode = DownloadForegroundService.MODE_1440
@@ -343,15 +395,27 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun download2160p(url: String) {
+        val normalizedUrl = url.trim()
+
+        if (normalizedUrl.isBlank()) {
+            _errorMessage.value = "Please enter a URL"
+            return
+        }
+
+        if (!isValidWebUrl(normalizedUrl)) {
+            _errorMessage.value = "Invalid URL"
+            return
+        }
+
         val info = _videoInfo.value ?: run {
             _errorMessage.value = "Load video info first"
             return
         }
 
-        saveLastUrl(url)
+        saveLastUrl(normalizedUrl)
 
         startForegroundDownload(
-            url = url,
+            url = normalizedUrl,
             title = info.title,
             fileName = sanitizeFileName(info.title),
             mode = DownloadForegroundService.MODE_2160
@@ -359,15 +423,27 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun downloadAudio(url: String) {
+        val normalizedUrl = url.trim()
+
+        if (normalizedUrl.isBlank()) {
+            _errorMessage.value = "Please enter a URL"
+            return
+        }
+
+        if (!isValidWebUrl(normalizedUrl)) {
+            _errorMessage.value = "Invalid URL"
+            return
+        }
+
         val info = _videoInfo.value ?: run {
             _errorMessage.value = "Load video info first"
             return
         }
 
-        saveLastUrl(url)
+        saveLastUrl(normalizedUrl)
 
         startForegroundDownload(
-            url = url,
+            url = normalizedUrl,
             title = info.title,
             fileName = sanitizeFileName(info.title),
             mode = DownloadForegroundService.MODE_AUDIO
@@ -478,15 +554,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             .take(200)
     }
 
-    private fun isValidYoutubeUrl(url: String): Boolean {
-        val patterns = listOf(
-            "youtube.com/watch",
-            "youtu.be/",
-            "youtube.com/shorts/",
-            "youtube.com/embed/",
-            "m.youtube.com/watch"
-        )
-        return patterns.any { url.contains(it, ignoreCase = true) }
+    private fun isValidWebUrl(url: String): Boolean {
+        return try {
+            val uri = Uri.parse(url)
+            val scheme = uri.scheme?.lowercase()
+            !uri.host.isNullOrBlank() && (scheme == "http" || scheme == "https")
+        } catch (e: Exception) {
+            false
+        }
     }
 
     fun clearError() {
